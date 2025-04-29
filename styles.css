@@ -1,0 +1,539 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Main animation container */
+.animation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  z-index: 1000;
+  transition: opacity 1.2s ease-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Logo styling */
+.logo-container {
+  position: relative;
+  width: 300px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-outline-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.logo-svg {
+  width: 100%;
+  height: 100%;
+  visibility: visible;
+}
+
+.logo-outline {
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
+  animation: draw-outline 2s ease forwards;
+}
+
+.logo-path {
+  opacity: 0;
+  fill-opacity: 0; /* Start with no fill */
+  animation: fade-in 1s ease forwards 1.8s;
+}
+
+.logo-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(214, 175, 54, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+  opacity: 0;
+  filter: blur(15px);
+  animation: glow 2s ease-in forwards 2.3s;
+}
+
+/* Text styling */
+.text-container {
+  position: relative;
+  margin-top: 32px;
+  width: 100%;
+  text-align: center;
+}
+
+.racing-text-container {
+  position: relative;
+}
+
+.redline-racing-text {
+  font-size: 48px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #D00000;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  position: relative;
+  height: 60px;
+}
+
+.tagline-racing-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #B4A572;
+  letter-spacing: 1px;
+  height: 20px;
+}
+
+.racing-letter, .racing-tagline-letter {
+  opacity: 0;
+  display: inline-block;
+  animation: race-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.racing-word {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+/* Speed lines */
+.speed-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.speed-line {
+  position: absolute;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #D00000 20%, #D00000 80%, transparent);
+  transform: translateX(-100%);
+  animation: speed-line 0.8s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+}
+
+/* Dynamic lines for F1 style effect */
+.dynamic-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  animation: dynamic-line 1.2s linear forwards;
+  pointer-events: none;
+}
+
+/* Background Canvas */
+.background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Content after animation */
+.content-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header styling */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.brand-name {
+  font-weight: 800;
+  font-size: 24px;
+  margin-left: 10px;
+  color: #D00000;
+  letter-spacing: 2px;
+}
+
+.main-nav ul {
+  display: flex;
+  list-style: none;
+}
+
+.main-nav li {
+  margin-left: 30px;
+}
+
+.main-nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.main-nav a:hover {
+  color: #D00000;
+}
+
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #D00000;
+  transition: width 0.3s ease;
+}
+
+.main-nav a:hover::after {
+  width: 100%;
+}
+
+.nav-btn {
+  background: linear-gradient(90deg, #E56717 0%, #D00000 100%);
+  padding: 8px 16px;
+  border-radius: 4px;
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(208, 0, 0, 0.3);
+}
+
+.nav-btn:hover::after {
+  width: 0; /* Disable underline for button */
+}
+
+/* Hero section */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  flex-grow: 1;
+}
+
+.hero-content {
+  max-width: 800px;
+  text-align: center;
+}
+
+.content-heading {
+  color: #fff;
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #ffffff 0%, #B4A572 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(180, 165, 114, 0.3);
+}
+
+.separator-line {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #E56717 0%, #D00000 100%);
+  margin: 20px auto 30px;
+  border-radius: 2px;
+}
+
+.content-description {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.primary-btn, .secondary-btn {
+  padding: 12px 30px;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.primary-btn {
+  background: linear-gradient(90deg, #E56717 0%, #D00000 100%);
+  color: #fff;
+  border: none;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(180, 165, 114, 0.6);
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(208, 0, 0, 0.2);
+}
+
+/* Tech badges */
+.tech-badges {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 60px;
+}
+
+.badge {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(180, 165, 114, 0.3);
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #B4A572;
+  position: relative;
+  overflow: hidden;
+}
+
+.badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(180, 165, 114, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.badge:hover::before {
+  left: 100%;
+}
+
+/* Bottom accent */
+.bottom-accent {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  overflow: hidden;
+}
+
+.racing-stripe {
+  position: absolute;
+  width: 200%;
+  height: 5px;
+  background: linear-gradient(90deg, #E56717, #D00000, #730000, #E56717);
+  bottom: 30px;
+  left: -50%;
+  transform: rotate(-1deg);
+  animation: race 6s linear infinite;
+  box-shadow: 0 0 10px rgba(208, 0, 0, 0.5);
+}
+
+@keyframes race {
+  0% {
+    transform: translateX(0) rotate(-1deg);
+  }
+  100% {
+    transform: translateX(50%) rotate(-1deg);
+  }
+}
+
+/* Small Logo in content */
+.small-logo-container {
+  position: relative;
+  width: 40px;
+  height: 30px;
+  animation: pulse-glow 3s infinite alternate;
+}
+
+.small-logo-svg {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.small-logo-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(214, 175, 54, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+  filter: blur(8px);
+  z-index: 1;
+}
+
+/* Animations */
+@keyframes draw-outline {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+    fill-opacity: 1; /* Ensure fill is shown */
+  }
+}
+
+@keyframes glow {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes race-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  70% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes speed-line {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes dynamic-line {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-glow {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .content-heading {
+    font-size: 2rem;
+  }
+  
+  .main-nav ul {
+    gap: 15px;
+  }
+  
+  .main-nav li {
+    margin-left: 15px;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .tech-badges {
+    flex-wrap: wrap;
+  }
+}

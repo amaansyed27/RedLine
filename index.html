@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redline | Pushing Boundaries of Innovation</title>
+    <meta name="description" content="Redline is a hackathon team focused on creating cutting-edge solutions with speed, precision, and excellence.">
+    <meta property="og:title" content="Redline Team">
+    <meta property="og:description" content="Pushing boundaries of innovation with speed, precision, and excellence.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Inline critical CSS to ensure visibility */
+        #animationContainer {
+            background-color: #000;
+            z-index: 1000;
+        }
+        .logo-svg {
+            width: 300px;
+            height: 250px;
+            display: block;
+        }
+        #content {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="animationContainer" class="animation-container" aria-label="Redline Team logo animation">
+        <div class="flex-container">
+            <div class="logo-container">
+                <div class="logo-outline-container">
+                    <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 349 272" fill="none" aria-hidden="true">
+                        <!-- Gold outline that traces the path -->
+                        <path 
+                            class="logo-outline"
+                            d="M30.0617 31.879L8 4.52539L196.003 4.52539C204.615 4.07146 211.445 3.89921 217.087 4.0576C234.074 4.53446 251.394 12.9579 258.675 28.3128C263.535 38.5627 263.768 51.7944 257.974 71.924C240.84 111.786 217.703 120.817 186.067 117.042L237.055 230.951H344L331.972 267.714L237.598 267.923C218.525 267.965 201.237 256.712 193.556 239.254L139.785 117.042H97.6872L69.9704 192.796L11.1377 236.521L67.6171 80.2792L193.42 79.7548C198.605 79.7332 203.934 79.3553 208.5 76.8989C213.207 74.3665 217.357 70.2919 219.013 63.2903C219.756 56.4571 218.497 51.945 215.578 49.1381C212.338 46.0226 207.379 46.0227 202.878 46.0229H202.784H59.6402C48.1493 46.0229 37.2756 40.8233 30.0617 31.879Z" 
+                            stroke="url(#paint1_linear_1_5)" 
+                            stroke-width="7"
+                            fill="none"
+                        />
+                        <!-- Filled logo that appears after the outline -->
+                        <path 
+                            class="logo-path"
+                            d="M30.0617 31.879L8 4.52539L196.003 4.52539C204.615 4.07146 211.445 3.89921 217.087 4.0576C234.074 4.53446 251.394 12.9579 258.675 28.3128C263.535 38.5627 263.768 51.7944 257.974 71.924C240.84 111.786 217.703 120.817 186.067 117.042L237.055 230.951H344L331.972 267.714L237.598 267.923C218.525 267.965 201.237 256.712 193.556 239.254L139.785 117.042H97.6872L69.9704 192.796L11.1377 236.521L67.6171 80.2792L193.42 79.7548C198.605 79.7332 203.934 79.3553 208.5 76.8989C213.207 74.3665 217.357 70.2919 219.013 63.2903C219.756 56.4571 218.497 51.945 215.578 49.1381C212.338 46.0226 207.379 46.0227 202.878 46.0229H202.784H59.6402C48.1493 46.0229 37.2756 40.8233 30.0617 31.879Z" 
+                            fill="url(#paint0_linear_1_5)" 
+                            stroke="url(#paint1_linear_1_5)" 
+                            stroke-width="4"
+                        />
+                        <defs>
+                            <linearGradient id="paint0_linear_1_5" x1="176" y1="4" x2="176" y2="267.993" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#E56717"/>
+                                <stop offset="0.552885" stop-color="#D00000"/>
+                                <stop offset="1" stop-color="#730000"/>
+                            </linearGradient>
+                            <linearGradient id="paint1_linear_1_5" x1="344" y1="135.996" x2="8" y2="135.996" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#4E4731"/>
+                                <stop offset="0.764423" stop-color="#B4A572"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="logo-glow"></div>
+                </div>
+            </div>
+
+            <!-- Racing-style animated text -->
+            <div class="text-container">
+                <div class="racing-text-container">
+                    <!-- Redline text -->
+                    <div class="redline-racing-text" id="redlineText"></div>
+                    
+                    <!-- Tagline text -->
+                    <div class="tagline-racing-text" id="taglineText"></div>
+                </div>
+
+                <!-- Speed lines for racing effect -->
+                <div class="speed-lines" id="speedLines"></div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="backgroundCanvas" class="background-canvas"></canvas>
+
+    <div id="content" style="display: none;">
+        <div class="content-container">
+            <header class="main-header">
+                <div class="header-logo">
+                    <div class="small-logo-container">
+                        <svg class="small-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 349 272" fill="none" aria-hidden="true">
+                            <path 
+                                class="small-logo-path"
+                                d="M30.0617 31.879L8 4.52539L196.003 4.52539C204.615 4.07146 211.445 3.89921 217.087 4.0576C234.074 4.53446 251.394 12.9579 258.675 28.3128C263.535 38.5627 263.768 51.7944 257.974 71.924C240.84 111.786 217.703 120.817 186.067 117.042L237.055 230.951H344L331.972 267.714L237.598 267.923C218.525 267.965 201.237 256.712 193.556 239.254L139.785 117.042H97.6872L69.9704 192.796L11.1377 236.521L67.6171 80.2792L193.42 79.7548C198.605 79.7332 203.934 79.3553 208.5 76.8989C213.207 74.3665 217.357 70.2919 219.013 63.2903C219.756 56.4571 218.497 51.945 215.578 49.1381C212.338 46.0226 207.379 46.0227 202.878 46.0229H202.784H59.6402C48.1493 46.0229 37.2756 40.8233 30.0617 31.879Z" 
+                                fill="url(#paint0_linear_small)" 
+                                stroke="url(#paint1_linear_small)" 
+                                strokeWidth="2"
+                            />
+                            <defs>
+                                <linearGradient id="paint0_linear_small" x1="176" y1="4" x2="176" y2="267.993" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#E56717"/>
+                                    <stop offset="0.552885" stop-color="#D00000"/>
+                                    <stop offset="1" stop-color="#730000"/>
+                                </linearGradient>
+                                <linearGradient id="paint1_linear_small" x1="344" y1="135.996" x2="8" y2="135.996" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4E4731"/>
+                                    <stop offset="0.764423" stop-color="#B4A572"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="small-logo-glow"></div>
+                    </div>
+                    <div class="brand-name">REDLINE</div>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#solutions">Solutions</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#contact" class="nav-btn">Contact</a></li>
+                    </ul>
+                </nav>
+            </header>
+            
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="content-heading">PUSHING THE<br/>BOUNDARIES OF INNOVATION</h1>
+                    <div class="separator-line"></div>
+                    <p class="content-description">Redline is a hackathon team focused on creating cutting-edge solutions with speed, precision, and excellence.</p>
+                    <div class="cta-buttons">
+                        <a href="#projects" class="primary-btn">Our Projects</a>
+                        <a href="#about" class="secondary-btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="tech-badges">
+                    <div class="badge">AI</div>
+                    <div class="badge">Web3</div>
+                    <div class="badge">Cloud</div>
+                    <div class="badge">IoT</div>
+                </div>
+            </section>
+            
+            <div class="bottom-accent">
+                <div class="racing-stripe"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
