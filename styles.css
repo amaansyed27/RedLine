@@ -436,6 +436,27 @@ body {
   z-index: 1;
 }
 
+/* Add a user interaction indicator if autoplay is blocked */
+.audio-interaction-prompt {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1100;
+}
+
+.audio-interaction-prompt.visible {
+  opacity: 1;
+}
+
 /* Animations */
 @keyframes draw-outline {
   to {

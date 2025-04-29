@@ -6,11 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const speedLines = document.getElementById('speedLines');
   const content = document.getElementById('content');
   const backgroundCanvas = document.getElementById('backgroundCanvas');
+  const raceSound = document.getElementById('raceSound');
 
   // Debug logging
   console.log('Animation initialization starting');
   console.log('Container element found:', animationContainer !== null);
   console.log('Redline text element found:', redlineText !== null);
+  console.log('Audio element found:', raceSound !== null);
   
   // isAnimating is already declared above, removing duplicate declaration
 
@@ -30,7 +32,92 @@ document.addEventListener('DOMContentLoaded', () => {
   if (logoPath) logoPath.style.opacity = '0'; // Will be animated in
   if (logoOutline) logoOutline.style.opacity = '1';
 
+  // Add a user interaction prompt
+  const audioPrompt = document.createElement('div');
+  audioPrompt.className = 'audio-interaction-prompt';
+  audioPrompt.textContent = 'Click anywhere to enable sound';
+  audioPrompt.style.position = 'fixed';
+  audioPrompt.style.bottom = '20px';
+  audioPrompt.style.left = '50%';
+  audioPrompt.style.transform = 'translateX(-50%)';
+  audioPrompt.style.background = 'rgba(0, 0, 0, 0.7)';
+  audioPrompt.style.color = 'white';
+  audioPrompt.style.padding = '10px 20px';
+  audioPrompt.style.borderRadius = '20px';
+  audioPrompt.style.zIndex = '1500';
+  document.body.appendChild(audioPrompt);
+
   let isAnimating = true;
+  let audioStarted = false;
+  let animationComplete = false;
+  
+  // Improved audio handling
+  function handleAudio() {
+    if (!raceSound) {
+      console.error('Audio element not found');
+      return;
+    }
+    
+    // Force load the audio file
+    raceSound.load();
+    console.log('Audio file loaded', raceSound.src);
+    
+    // Try to play immediately
+    raceSound.play()
+      .then(() => {
+        console.log('Audio playing successfully');
+        audioStarted = true;
+        audioPrompt.style.display = 'none';
+      })
+      .catch(error => {
+        console.warn('Audio autoplay prevented:', error);
+        audioPrompt.style.display = 'block';
+        
+        // Setup one-time click listener for the whole document
+        document.addEventListener('click', function playOnClick() {
+          // Only play audio if animation is still running
+          if (!animationComplete) {
+            raceSound.play()
+              .then(() => {
+                console.log('Audio playing after user interaction');
+                audioStarted = true;
+                audioPrompt.style.display = 'none';
+              })
+              .catch(err => {
+                console.error('Audio still failed to play:', err);
+              });
+          } else {
+            // Hide the prompt if animation is already complete
+            audioPrompt.style.display = 'none';
+          }
+          // Remove the click listener regardless
+          document.removeEventListener('click', playOnClick);
+        }, { once: true });
+      });
+  }
+  
+  // Call audio handler after a short delay to ensure the DOM is fully ready
+  setTimeout(handleAudio, 100);
+
+  // Function to fade out audio
+  function fadeOutSound(audioElement, duration = 1000) {
+    if (!audioElement) return;
+    
+    const fadeInterval = 50; // Update every 50ms
+    const fadeSteps = duration / fadeInterval;
+    const volumeStep = audioElement.volume / fadeSteps;
+    
+    const fadeOutInterval = setInterval(() => {
+      if (audioElement.volume > volumeStep) {
+        audioElement.volume -= volumeStep;
+      } else {
+        audioElement.volume = 0;
+        audioElement.pause();
+        clearInterval(fadeOutInterval);
+        console.log('Race sound faded out');
+      }
+    }, fadeInterval);
+  }
 
   // Function to create dynamic F1-style lines
   function createDynamicLine() {
@@ -108,14 +195,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // End animation after a set time
   const timer = setTimeout(() => {
     isAnimating = false;
+    animationComplete = true;
     animationContainer.classList.add('fade-out');
     console.log('Animation ending, fading out container');
+    
+    // Ensure sound is faded out if it hasn't started fading yet
+    if (audioStarted && raceSound && raceSound.volume > 0) {
+      fadeOutSound(raceSound);
+    }
     
     setTimeout(() => {
       // Hide animation container and show content
       animationContainer.style.display = 'none';
       content.style.display = 'block';
       console.log('Animation container hidden, content shown');
+      
+      // Hide audio prompt if still visible
+      audioPrompt.style.display = 'none';
       
       // Start background animation
       initBackgroundAnimation();
