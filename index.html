@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redline | Pushing Boundaries of Innovation</title>
+    <title>Redline | Coming Soon</title>
     <meta name="description" content="Redline is a hackathon team focused on creating cutting-edge solutions with speed, precision, and excellence.">
     <meta property="og:title" content="Redline Team">
     <meta property="og:description" content="Pushing boundaries of innovation with speed, precision, and excellence.">
@@ -33,6 +33,66 @@
         #content {
             padding: 20px;
             text-align: center;
+        }
+        
+        /* Coming Soon Animation Styles */
+        .coming-soon-container {
+            margin-top: 30px;
+        }
+        .coming-soon-text {
+            font-size: 42px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #E56717, #D00000, #730000, #E56717);
+            background-size: 300% 100%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 8s ease infinite;
+        }
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .countdown-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: #B4A572;
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            border: 2px solid rgba(180, 165, 114, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 15px rgba(214, 175, 54, 0.2);
+        }
+        .countdown-label {
+            margin-top: 10px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
         }
     </style>
 </head>
@@ -130,10 +190,7 @@
                 
                 <nav class="main-nav">
                     <ul>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#solutions">Solutions</a></li>
-                        <li><a href="#team">Team</a></li>
-                        <li><a href="#contact" class="nav-btn">Contact</a></li>
+                        <!-- Navbar is kept blank as requested -->
                     </ul>
                 </nav>
             </header>
@@ -143,17 +200,29 @@
                     <h1 class="content-heading">PUSHING THE<br/>BOUNDARIES OF INNOVATION</h1>
                     <div class="separator-line"></div>
                     <p class="content-description">Redline is a hackathon team focused on creating cutting-edge solutions with speed, precision, and excellence.</p>
-                    <div class="cta-buttons">
-                        <a href="#projects" class="primary-btn">Our Projects</a>
-                        <a href="#about" class="secondary-btn">Learn More</a>
+                    
+                    <!-- Coming Soon Section -->
+                    <div class="coming-soon-container">
+                        <div class="coming-soon-text pulse">COMING SOON</div>
+                        <div class="countdown-container">
+                            <div class="countdown-item">
+                                <div class="countdown-value" id="days">00</div>
+                                <div class="countdown-label">Days</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-value" id="hours">00</div>
+                                <div class="countdown-label">Hours</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-value" id="minutes">00</div>
+                                <div class="countdown-label">Minutes</div>
+                            </div>
+                            <div class="countdown-item">
+                                <div class="countdown-value" id="seconds">00</div>
+                                <div class="countdown-label">Seconds</div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="tech-badges">
-                    <div class="badge">AI</div>
-                    <div class="badge">Web3</div>
-                    <div class="badge">Cloud</div>
-                    <div class="badge">IoT</div>
                 </div>
             </section>
             
@@ -164,5 +233,43 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        // Countdown timer functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set the countdown date (30 days from now)
+            const countdownDate = new Date();
+            countdownDate.setDate(countdownDate.getDate() + 30);
+            
+            // Update the countdown every second
+            const countdownTimer = setInterval(function() {
+                // Get current date and time
+                const now = new Date().getTime();
+                
+                // Find the time difference between now and the countdown date
+                const timeDifference = countdownDate - now;
+                
+                // Calculate days, hours, minutes and seconds
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+                
+                // Display the result
+                document.getElementById("days").textContent = days.toString().padStart(2, '0');
+                document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+                document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+                document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+                
+                // If the countdown is finished, clear interval and display message
+                if (timeDifference < 0) {
+                    clearInterval(countdownTimer);
+                    document.getElementById("days").textContent = "00";
+                    document.getElementById("hours").textContent = "00";
+                    document.getElementById("minutes").textContent = "00";
+                    document.getElementById("seconds").textContent = "00";
+                }
+            }, 1000);
+        });
+    </script>
 </body>
 </html>

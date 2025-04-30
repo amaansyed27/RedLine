@@ -530,6 +530,146 @@ body {
   }
 }
 
+/* Coming Soon Animation specific styles */
+.coming-soon-container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.coming-soon-container::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #E56717, transparent);
+}
+
+.coming-soon-text {
+  font-size: 48px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, #E56717, #D00000, #730000, #E56717);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 8s ease infinite;
+  text-shadow: 0 0 20px rgba(229, 103, 23, 0.3);
+}
+
+.countdown-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.countdown-value {
+  font-size: 48px;
+  font-weight: 800;
+  color: #B4A572;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  border: 2px solid rgba(180, 165, 114, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 20px rgba(214, 175, 54, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown-value::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(180, 165, 114, 0.2),
+    transparent
+  );
+  animation: shine 3s infinite;
+}
+
+.countdown-label {
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 100%; }
+  100% { left: 100%; }
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+/* Adjust responsive styles for coming soon section */
+@media (max-width: 768px) {
+  .coming-soon-text {
+    font-size: 36px;
+  }
+  
+  .countdown-container {
+    gap: 15px;
+  }
+  
+  .countdown-value {
+    font-size: 32px;
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .countdown-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .countdown-item {
+    margin-bottom: 15px;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .main-header {
